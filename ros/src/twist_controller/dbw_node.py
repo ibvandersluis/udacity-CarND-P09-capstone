@@ -96,7 +96,7 @@ class DBWNode(object):
             rate.sleep()
 
     def dbw_enabled_cb(self, msg):
-        self.dbw_enabled = msg
+        self.dbw_enabled = msg.data
         if self.dbw_enabled:
             rospy.logwarn("DBW is enabled")
         else:
