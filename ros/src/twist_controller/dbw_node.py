@@ -97,18 +97,12 @@ class DBWNode(object):
 
     def dbw_enabled_cb(self, msg):
         self.dbw_enabled = msg.data
-        if self.dbw_enabled:
-            rospy.logwarn("DBW is enabled")
-        else:
-            rospy.logwarn("DBW is not enabled")
 
     def twist_cb(self, msg):
-        # rospy.logwarn("Twist received")
         self.linear_vel = msg.twist.linear.x
         self.angular_vel = msg.twist.angular.z
 
     def velocity_cb(self, msg):
-        # rospy.logwarn("Velocity received")
         self.velocity_cb = msg.twist.linear.x
 
     def publish(self, throttle, brake, steer):
