@@ -43,11 +43,8 @@ class Controller(object):
         # Return throttle, brake, steer
 
         if not dbw_enabled:
-            rospy.logwarn("DBW not enabled")
             self.throttle_controller.reset()
             return 0., 0., 0.
-
-        rospy.logwarn("Cycling")
 
         current_vel = self.vel_lpf.filt(current_vel)
 

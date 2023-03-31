@@ -97,6 +97,10 @@ class DBWNode(object):
 
     def dbw_enabled_cb(self, msg):
         self.dbw_enabled = msg.data
+        if self.dbw_enabled:
+            rospy.logwarn("DBW is enabled")
+        else:
+            rospy.logwarn("DBW is not enabled")
 
     def twist_cb(self, msg):
         self.linear_vel = msg.twist.linear.x
