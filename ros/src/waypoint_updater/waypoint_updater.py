@@ -82,11 +82,11 @@ class WaypointUpdater(object):
         return closest_idx
 
     def decelerate_waypoints(self, waypoints, closest_idx):
-        temp = []
-        for i, wp in enumerate(waypoints):
+        adjusted_waypoints = []
+        for i, waypoint in enumerate(waypoints):
 
-            p = Waypoint()
-            p.pose = wp.pose
+            adjusted_waypoint = Waypoint()
+            adjusted_waypoint.pose = waypoint.pose
 
             # Stop 2 waypoints sooner than the line so that entire car will stop behind it
             stop_idx = max(self.stopline_wp_idx - closest_idx - 2, 0)
@@ -95,8 +95,10 @@ class WaypointUpdater(object):
             if vel < 1.0:
                 vel = 0
 
-            p.twist.twist.linear.x = min(vel, wp.twist.twist.linear.x)
-            temp.append(p)
+            adjusted_waypoint.twist.twist.linear.x = min(vel, waypoint.twist.twist.linear.x)
+            adjusted_waypoints.append(adjusted_waypoint)
+
+        return adjusted_waypoints
 
 
     def publish_waypoints(self):
